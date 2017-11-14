@@ -14,7 +14,7 @@ body {
   padding: 0;
   background: white;
   color: #333333;
-  font-family: "Muli", "Calibri", "Arial", sans-serif;
+  font-family: "Source Sans Pro", "Calibri", "Arial", sans-serif;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000317}}
@@ -308,7 +308,7 @@ section:first-child {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_header\.scss}line{font-family:\000031}}
 .header {
   background: #666666;
-  padding: 12px;
+  padding: 12px 0;
   color: white;
   font-weight: bold;
 }
@@ -328,6 +328,66 @@ section:first-child {
   margin: 0;
   color: white;
   line-height: 120px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\000037}}
+.form > div {
+  padding: 0 0 15px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000311}}
+.form input, .form button, .form label {
+  padding: 15px 15px 15px 0;
+  display: block;
+  font-family: inherit;
+  font-size: 1rem;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000318}}
+.form label {
+  width: 330px;
+  padding-bottom: 0;
+  font-size: 0.77rem;
+  text-transform: uppercase;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000325}}
+.form input, .form button {
+  width: 330px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000329}}
+.form input {
+  border: 0;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 7.5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000334}}
+.form input:placeholder-shown {
+  color: #666666;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000338}}
+.form input::placeholder {
+  color: #cccccc;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000342}}
+.form input:focus {
+  outline: none;
+  color: black;
+  border-bottom: 1px solid #666666;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000348}}
+.form input[type="password"] {
+  letter-spacing: 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000353}}
+.form button {
+  color: white;
+  background: #666666;
+  border: 1px solid;
+  cursor: pointer;
+  padding-top: 22.5px;
+  padding-bottom: 22.5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_form\.scss}line{font-family:\0000361}}
+.form button:hover {
+  background: #404040;
 }
 
 /*# sourceMappingURL=main.css.map */

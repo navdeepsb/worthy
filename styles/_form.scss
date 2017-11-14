@@ -1,0 +1,65 @@
+$formWidth: 330px;
+$formPadding: 15px;
+$placeholderColor: darken( white, 20% );
+
+
+.form {
+    & > div {
+        padding: 0 0 $formPadding 0;
+    }
+
+    input, button, label {
+        padding: $formPadding $formPadding $formPadding 0;
+        display: block;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    label {
+        width: $formWidth;
+        padding-bottom: 0;
+        font-size: 0.77rem;
+        text-transform: uppercase;
+    }
+
+    input, button {
+        width: $formWidth;
+    }
+
+    input {
+        border: 0;
+        border-bottom: 1px solid $placeholderColor;
+        padding-bottom: $formPadding / 2;
+
+        &:placeholder-shown {
+            color: $accent;
+        }
+
+        &::placeholder {
+            color: $placeholderColor;
+        }
+
+        &:focus {
+            outline: none;
+            color: black;
+            border-bottom: 1px solid $accent;
+        }
+
+        &[ type="password" ] {
+            letter-spacing: 3px;
+        }
+    }
+
+    button {
+        color: white;
+        background: $accent;
+        border: 1px solid;
+        cursor: pointer;
+        padding-top: $formPadding * 1.5;
+        padding-bottom: $formPadding * 1.5;
+
+        &:hover {
+            background: darken( $accent, 15% );
+        }
+    }
+}

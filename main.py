@@ -31,9 +31,19 @@ logging.info( "Booting up the web server....." )
 # -------------------------------------------------------------------
 class IndexHandler( webapp2.RequestHandler ):
     def get( self ):
-        yr = datetime.now().year
-        logging.info( "The current year is " + str( yr ) )
-        self.response.write( JINJA_ENVIRONMENT.get_template( "index.html" ).render({ "currYear": yr }) )
+        self.response.write( JINJA_ENVIRONMENT.get_template( "home.html" ).render() )
+
+# Handler for `/login`
+# -------------------------------------------------------------------
+class LoginHandler( webapp2.RequestHandler ):
+    def get( self ):
+        self.response.write( JINJA_ENVIRONMENT.get_template( "login.html" ).render() )
+
+# Handler for `/signup`
+# -------------------------------------------------------------------
+class SignupHandler( webapp2.RequestHandler ):
+    def get( self ):
+        self.response.write( JINJA_ENVIRONMENT.get_template( "signup.html" ).render() )
 
 # Handler for `404-error`
 # -------------------------------------------------------------------
@@ -45,6 +55,8 @@ class Error404Handler( webapp2.RequestHandler ):
 # App routes:
 app = webapp2.WSGIApplication([
     ( "/", IndexHandler ),
+    ( "/login", LoginHandler ),
+    ( "/signup", SignupHandler ),
     ( "/.*", Error404Handler )
 ], debug = True )
 

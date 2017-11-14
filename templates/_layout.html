@@ -1,0 +1,50 @@
+<!--
+ ! @author Navdeep Singh Bagga
+ !   @when Nov 2017
+ !   @desc Root view file for Worthy budget web app
+ !-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- page info :start -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Worthy, the effective worth calculator. What is your worth? Are you owed money? Do you owe money? Do you have multiple bank accounts? Worthy is the answer...">
+    <!-- page info :end -->
+
+    <title>Worthy, the effective worth calculator | by Navdeep, www.navdeepsb.com</title>
+
+    <!-- favicon :start -->
+    <!-- todo -->
+    <!-- favicon :end -->
+
+    <!-- stylesheets:start -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:400,700">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <!-- stylesheets:end -->
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <span id="title">loading...</span>
+        </div><!-- .container -->
+    </header>
+
+    <div class="container" style="min-height: 600px">
+        {% block content %}
+        {% endblock %}
+    </div><!-- .container -->
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text--small">Copyright &copy; {{ currYear }} Navdeep Singh Bagga | www.navdeepsb.com</p>
+        </div><!-- .container -->
+    </footer>
+
+    <!-- scripts:start -->
+    <script src="/public/js/lib/jquery.min.js"></script>
+    <script src="/public/js/main.js"></script>
+    <!-- scripts:end -->
+</body>
+</html>

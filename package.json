@@ -1,0 +1,31 @@
+{
+  "name": "worthy",
+  "version": "0.0.1",
+  "description": "A budget solution that focuses on a user's worth rather than their available bank balance. Worth can be higher, lower or even same as the sum of all your money sources.",
+  "main": "app.yaml",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/navdeepsb/worthy.git"
+  },
+  "keywords": [
+    "Website",
+    "Budget",
+    "Social Computing",
+    "Analytics",
+    "UX"
+  ],
+  "author": "Navdeep Singh Bagga <navdeepb3191@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/navdeepsb/simaweb/issues"
+  },
+  "homepage": "https://github.com/navdeepsb/simaweb#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}

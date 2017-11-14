@@ -1,0 +1,333 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\000031}}
+* {
+  box-sizing: border-box;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\000035}}
+html {
+  font-size: 1em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\000039}}
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: #333333;
+  font-family: "Muli", "Calibri", "Arial", sans-serif;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000317}}
+h1, h2, h3 {
+  font-family: "Muli", "Times New Roman", serif;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000321}}
+p, ul, ol {
+  line-height: 1.5;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000325}}
+img {
+  max-width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000329}}
+a {
+  color: #666666;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000335}}
+section {
+  margin-top: 120px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_reset\.scss}line{font-family:\0000338}}
+section:first-child {
+  margin-top: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\000031}}
+.container {
+  max-width: 69rem;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\000037}}
+.hide {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\0000311}}
+.img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\0000315}}
+.img-wrapper img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\0000325}}
+.align--right {
+  text-align: right;
+}
+
+@media screen and (min-width: 800px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\0000331}}
+  .text--small {
+    font-size: 0.85rem;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_common\.scss}line{font-family:\0000337}}
+.text--disabled {
+  color: #999999;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\000036}}
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000317}}
+.col {
+  float: left;
+  padding: 10px 0 10px 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000321}}
+.grid .col:last-of-type {
+  padding-right: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000325}}
+.grid .col.no-gutter {
+  padding: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-1 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-1 {
+    width: 8.3333333333%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-1--fixed {
+  width: 8.3333333333%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-2 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-2 {
+    width: 16.6666666667%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-2--fixed {
+  width: 16.6666666667%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-3 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-3 {
+    width: 25%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-3--fixed {
+  width: 25%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-4 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-4 {
+    width: 33.3333333333%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-4--fixed {
+  width: 33.3333333333%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-5 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-5 {
+    width: 41.6666666667%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-5--fixed {
+  width: 41.6666666667%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-6 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-6 {
+    width: 50%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-6--fixed {
+  width: 50%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-7 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-7 {
+    width: 58.3333333333%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-7--fixed {
+  width: 58.3333333333%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-8 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-8 {
+    width: 66.6666666667%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-8--fixed {
+  width: 66.6666666667%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-9 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-9 {
+    width: 75%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-9--fixed {
+  width: 75%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-10 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-10 {
+    width: 83.3333333333%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-10--fixed {
+  width: 83.3333333333%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-11 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-11 {
+    width: 91.6666666667%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-11--fixed {
+  width: 91.6666666667%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000331}}
+.col-12 {
+  width: 100%;
+}
+@media screen and (min-width: 420px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000335}}
+  .col-12 {
+    width: 100%;
+  }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_grid\.scss}line{font-family:\0000341}}
+.col-12--fixed {
+  width: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_header\.scss}line{font-family:\000031}}
+.header {
+  background: #666666;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_footer\.scss}line{font-family:\000031}}
+.footer {
+  background: #666666;
+  height: 120px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_footer\.scss}line{font-family:\000035}}
+.footer .container {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/navi\/Workspace\/Github\/worthy\/styles\/_footer\.scss}line{font-family:\0000310}}
+.footer p {
+  margin: 0;
+  color: white;
+  line-height: 120px;
+}
+
+/*# sourceMappingURL=main.css.map */

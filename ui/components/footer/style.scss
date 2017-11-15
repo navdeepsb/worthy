@@ -1,0 +1,15 @@
+.footer {
+    background: $accent;
+    height: 120px;
+
+    .container {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    p {
+        margin: 0;
+        color: white;
+        line-height: 120px;
+    }
+}

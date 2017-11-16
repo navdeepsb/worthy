@@ -3,10 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Import styles:
-import "../login/style.scss"
+import "ui/screens/login/style.scss"
 
 // Import links:
-import NAV_LINKS from "../../common/web-links.json";
+import NAV_LINKS from "ui/common/web-links.json";
 
 
 export default class Signup extends React.Component {

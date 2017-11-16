@@ -6,20 +6,29 @@ import { Link } from "react-router-dom";
 // import "./style.scss"
 
 // Import links:
-import NAV_LINKS from "../../common/web-links.json";
-
+import NAV_LINKS from "ui/common/web-links.json";
+import DB_CONFIG from "db/config.jsx";
 
 export default class Home extends React.Component {
     render() {
+        console.log( "#", DB_CONFIG );
         return (
-            <section>
-                <h2>Welcome to Worthy!</h2>
-                <p><strong>Thank you for stopping by and trying this out</strong></p>
+            <div>
+                <section>
+                    <h2>Welcome to Worthy!</h2>
+                    <p><strong>Thank you for stopping by and trying this out.</strong></p>
 
-                <p><Link to={ NAV_LINKS.LOGIN }>Login</Link> or <Link to={ NAV_LINKS.SIGNUP }>Create an account</Link></p>
+                    <br />
+                    <br />
 
-                <p className="hide"><a href="/logout">Logout</a></p>
-           </section>
+                    <p><Link to={ NAV_LINKS.LOGIN }>Login</Link> or <Link to={ NAV_LINKS.SIGNUP }>Create an account</Link></p>
+
+                    <p className="hide"><a href="/logout">Logout</a></p>
+               </section>
+                <section>
+                    <p style={{ color: "#F85F73" }}>#workinprogress</p>
+               </section>
+           </div>
         );
     }
 }

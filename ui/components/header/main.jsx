@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import "./style.scss";
 
 // Import links:
-import NAV_LINKS from "../../common/web-links.json";
+import NAV_LINKS from "ui/common/web-links.json";
 
 
 export default class Header extends React.Component {

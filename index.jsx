@@ -1,9 +1,7 @@
 // Import dependencies:
 import React from "react";
 import { render as ReactDOMRender } from "react-dom";
-import { HashRouter, Switch, Route, IndexRoute } from "react-router-dom";
-// import { Router, Route, IndexRoute } from "react-router";
-// import useScroll from "react-router-scroll/lib/useScroll";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
 // Import components:
 import Header from "./ui/components/header/main.jsx";
@@ -14,8 +12,9 @@ import SignupScreen from "./ui/screens/signup/main.jsx";
 import NotFoundScreen from "./ui/screens/404/main.jsx";
 
 // Import styles:
-import "./ui/common/reset.scss";
-import "./ui/common/util.scss";
+import "./ui/common/styles/reset.scss";
+import "./ui/common/styles/util.scss";
+import "./ui/common/styles/grid.scss";
 
 // Import data:
 import NAV_LINKS from "./ui/common/web-links.json";

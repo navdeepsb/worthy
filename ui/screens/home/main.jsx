@@ -11,7 +11,6 @@ import DB_CONFIG from "db/config.jsx";
 
 export default class Home extends React.Component {
     render() {
-        console.log( "#", DB_CONFIG );
         return (
             <div>
                 <section>

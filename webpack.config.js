@@ -27,7 +27,8 @@ module.exports = function() {
                 "_": path.resolve( __dirname, "./" ),
                 "ui": path.resolve( __dirname, "ui/" ),
                 "db": path.resolve( __dirname, "db/" )
-            }
+            },
+            extensions: [ ".js", ".jsx" ]
         },
         devtool: "eval-source-map",
         stats: "normal",

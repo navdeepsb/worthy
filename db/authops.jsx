@@ -115,21 +115,21 @@ export default class AuthenticationOperations {
 
     isUserLoggedIn( userEmail ) {
         const _logger          = new Logger( "AuthenticationOperations.isUserLoggedIn" );
-        const currentUserEmail = _firebase.getFirebaseAuth().currentUser && _firebase.getFirebaseAuth().currentUser.email;
+        const currentUserEmail = _firebase.getFirebaseAuth() && _firebase.getFirebaseAuth().currentUser && _firebase.getFirebaseAuth().currentUser.email;
         _logger.info( "In session: " + currentUserEmail + "; To match: " + userEmail );
         return currentUserEmail === userEmail;
     }
 
     getCurrentUserEmail() {
         const _logger          = new Logger( "AuthenticationOperations.getCurrentUserEmail" );
-        const currentUserEmail = _firebase.getFirebaseAuth().currentUser && _firebase.getFirebaseAuth().currentUser.email;
+        const currentUserEmail = _firebase.getFirebaseAuth() && _firebase.getFirebaseAuth().currentUser && _firebase.getFirebaseAuth().currentUser.email;
         _logger.info( "In session: " + currentUserEmail );
         return currentUserEmail;
     }
 
     getCurrentUserDisplayName() {
         const _logger     = new Logger( "AuthenticationOperations.getCurrentUserDisplayName" );
-        const displayName = _firebase.getFirebaseAuth().currentUser && _firebase.getFirebaseAuth().currentUser.displayName;
+        const displayName = _firebase.getFirebaseAuth() && _firebase.getFirebaseAuth().currentUser && _firebase.getFirebaseAuth().currentUser.displayName;
         _logger.info( "In session: " + displayName );
         return displayName;
     }

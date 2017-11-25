@@ -18,7 +18,7 @@ let auth = null;
 let isInitialized = false;
 
 export default class Firebase {
-    init() {
+    init( cb ) {
         this._logger = new Logger( "init.jsx" );
 
         if( !isInitialized ) {
@@ -32,6 +32,19 @@ export default class Firebase {
             const PERSISTENCE_TYPE = firebase.auth.Auth.Persistence.SESSION; // SESSION, LOCAL, NONE
             auth.setPersistence( PERSISTENCE_TYPE );
             this._logger.info( "Setting-up auth persistence as '" + PERSISTENCE_TYPE + "'" );
+
+            if( cb && typeof cb === "function" ) {
+                auth.onAuthStateChanged( cb );
+            }
+
+            // auth.onAuthStateChanged( user => {
+            //     if( user ) {
+            //         this._logger.info( "User logged in: " + user.displayName );
+            //     }
+            //     else {
+            //         this._logger.info( "No one logged in." );
+            //     }
+            // });
 
             isInitialized = true;
             this._logger.info( "Firebase initialized..." );

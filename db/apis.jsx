@@ -18,7 +18,7 @@ import Logger from "_/logger.jsx";
 
 // Variables:
 const _obj = {};
-const _logger  = new Logger( "app.worthy.API" );
+const _logger  = new Logger( "API" );
 const _utils   = new Utils();
 const DB_OPS   = new DatabaseOperations();
 const AUTH_OPS = new AuthenticationOperations();
@@ -60,22 +60,29 @@ _obj[ "users" ] = {
         _logger.info( "users.getCurrentUserEmailFromSession" );
         return AUTH_OPS.getCurrentUserEmail();
     },
+    getCurrentUserDisplayNameFromSession: () => {
+        /**
+         * Returns the email address of the user currently logged-in, otherwise undefined
+         **/
+        _logger.info( "users.getCurrentUserDisplayNameFromSession" );
+        return AUTH_OPS.getCurrentUserDisplayName();
+    },
     getCurrentUserInfoFromDb: () => {
         /**
          * Returns the user info of currently logged-in user
          **/
         _logger.info( "users.getCurrentUserInfoFromDb" );
 
-        var currentUserEmail = this.getCurrentUserEmailFromSession();
+        var currentUserDisplayName = _obj.users.getCurrentUserDisplayNameFromSession();
 
-        if( !currentUserEmail ) {
+        if( !currentUserDisplayName ) {
             _logger.info( "The user is not logged in" );
             return window.Promise.resolve( { message: "The user is not logged in" } );
         }
 
-        _logger.info( "currentUserEmail: " + currentUserEmail );
+        _logger.info( "currentUserDisplayName: " + currentUserDisplayName );
 
-        return DB_OPS.get( "users/" + UTILS.formatEmailAsKey( currentUserEmail ) );
+        return DB_OPS.get( "users/" + currentUserDisplayName );
     },
     getByEmail: ( email ) => {
         /**
@@ -149,4 +156,5 @@ _obj[ "users" ] = {
     }
 };
 
+window.BACKEND_API = _obj;
 export default _obj

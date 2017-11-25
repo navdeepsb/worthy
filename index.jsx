@@ -4,12 +4,12 @@ import { render as ReactDOMRender } from "react-dom";
 import { HashRouter, Switch, Route } from "react-router-dom";
 
 // Import components:
-import Header from "ui/components/header/main.jsx";
-import Footer from "ui/components/footer/main.jsx";
-import HomeScreen from "ui/screens/home/main.jsx";
-import LoginScreen from "ui/screens/login/main.jsx";
-import SignupScreen from "ui/screens/signup/main.jsx";
-import NotFoundScreen from "ui/screens/404/main.jsx";
+import Header from "ui/components/header";
+import Footer from "ui/components/footer";
+import HomeScreen from "ui/screens/home";
+import LoginScreen from "ui/screens/login";
+import SignupScreen from "ui/screens/signup";
+import NotFoundScreen from "ui/screens/404";
 
 // Import Firebase interface:
 import FirebaseInterface from "db/firebase.jsx";
@@ -26,7 +26,7 @@ import "ui/common/styles/grid.scss";
 import NAV_LINKS from "ui/common/web-links.json";
 
 // Set up logging:
-const _logger = new Logger( "index.jsx" );
+const _logger = new Logger( "index.view" );
 
 
 class App extends React.Component {
@@ -49,15 +49,18 @@ class App extends React.Component {
 }
 
 
-ReactDOMRender(
-    <HashRouter>
-        <App />
-    </HashRouter>,
-    document.getElementById( "content" )
-);
-_logger.info( "React app loaded..." );
 
-window.f = FirebaseInterface;
-window._f = ( new FirebaseInterface() )
-_f.init();
+
+// Initialize Firebase:
+const dbInitCallback = ( currentUser ) => {
+    ReactDOMRender(
+        <HashRouter>
+            <App />
+        </HashRouter>,
+        document.getElementById( "content" )
+    );
+    _logger.info( "React app loaded..." );
+};
+
+( new FirebaseInterface() ).init( dbInitCallback );
 _logger.info( "DB initialized..." );

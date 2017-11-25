@@ -1,27 +1,33 @@
 // Import dependencies:
 import React from "react";
 import { Link } from "react-router-dom";
-
-// Import links:
 import NAV_LINKS from "ui/common/web-links.json";
+import BACKEND_API from "db/apis.jsx";
 
 // Import components:
 import Form from "ui/components/form/main.jsx";
 
+// Import logging:
+import Logger from "_/logger.jsx";
+
+// Set up logging:
+const _logger = new Logger( "signup.main" );
+
 
 export default class Signup extends React.Component {
     _handleFormSubmit( data ) {
-        console.log( "This is the data from the form, yeah:", data );
+        BACKEND_API.users.signup( data.email, data.password )
+            .then( ( resp ) => {
+                _logger.info( resp );
+            });
     }
 
     render() {
         const formData = {
             fields: [{
                 name: "email",
-                placeholder: "Ex. rick.sanchez@example.com"
-            },{
-                name: "username",
-                placeholder: "Ex. r1ck_"
+                placeholder: "Ex. rick.sanchez@example.com",
+                spellCheck: false
             },{
                 name: "password",
                 placeholder: "*************",

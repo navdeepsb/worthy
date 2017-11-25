@@ -11,6 +11,12 @@ import LoginScreen from "ui/screens/login/main.jsx";
 import SignupScreen from "ui/screens/signup/main.jsx";
 import NotFoundScreen from "ui/screens/404/main.jsx";
 
+// Import Firebase interface:
+import FirebaseInterface from "db/firebase.jsx";
+
+// Import logger:
+import Logger from "_/logger.jsx";
+
 // Import styles:
 import "ui/common/styles/reset.scss";
 import "ui/common/styles/util.scss";
@@ -18,6 +24,9 @@ import "ui/common/styles/grid.scss";
 
 // Import data:
 import NAV_LINKS from "ui/common/web-links.json";
+
+// Set up logging:
+const _logger = new Logger( "index.jsx" );
 
 
 class App extends React.Component {
@@ -46,3 +55,9 @@ ReactDOMRender(
     </HashRouter>,
     document.getElementById( "content" )
 );
+_logger.info( "React app loaded..." );
+
+window.f = FirebaseInterface;
+window._f = ( new FirebaseInterface() )
+_f.init();
+_logger.info( "DB initialized..." );

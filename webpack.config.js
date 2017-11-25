@@ -5,12 +5,13 @@
 
 var path = require( "path" );
 var webpack = require( "webpack" );
+var LiveReloadPlugin = require( "webpack-livereload-plugin" );
 
 module.exports = function() {
     console.log( "" );
     console.log( "Loading..." );
     console.log( "" );
-    console.log( "While you wait, did you know Master Yoda's original name would have been Minch Yoda?" );
+    console.log( "While you wait, did you know Master Yoda's original name was supposed to be Minch Yoda?" );
     console.log( "" );
     console.log( "@navdeepsb" );
     console.log( "" );
@@ -23,6 +24,7 @@ module.exports = function() {
         },
         resolve: {
             alias: {
+                "_": path.resolve( __dirname, "./" ),
                 "ui": path.resolve( __dirname, "ui/" ),
                 "db": path.resolve( __dirname, "db/" )
             }
@@ -58,7 +60,11 @@ module.exports = function() {
             ]
         },
         plugins: [
-            new webpack.optimize.UglifyJsPlugin({})
+            new webpack.optimize.UglifyJsPlugin({}),
+            new LiveReloadPlugin({
+                host: "localhost",
+                port: 35729
+            })
         ]
     }
 };

@@ -1,18 +1,18 @@
 // Import dependencies:
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthInterceptor from "ui/common/auth-interceptor.jsx";
+import LoggedInUserInterceptor from "ui/common/interceptors/logged-in";
 import NAV_LINKS from "ui/common/web-links.json";
-import BACKEND_API from "db/apis.jsx";
+import BACKEND_API from "db/apis";
 
 // Import components:
 import Form from "ui/components/form";
 
 // Import logging:
-import Logger from "_/logger.jsx";
+import Logger from "_/logger";
 
 // Set up logging:
-const _logger = new Logger( "login.main" );
+const _logger = new Logger( "login.view" );
 
 
 export default class Login extends React.Component {
@@ -39,13 +39,13 @@ export default class Login extends React.Component {
         };
 
         return (
-            <AuthInterceptor>
+            <LoggedInUserInterceptor>
                 <section>
                     <h2>Login</h2>
                     <Form data={ formData } />
                     <p>New member? <Link to={ NAV_LINKS.SIGNUP }>Signup</Link></p>
                 </section>
-            </AuthInterceptor>
+            </LoggedInUserInterceptor>
         );
     }
 }

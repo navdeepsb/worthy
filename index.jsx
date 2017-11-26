@@ -9,6 +9,7 @@ import Footer from "ui/components/footer";
 import HomeScreen from "ui/screens/home";
 import LoginScreen from "ui/screens/login";
 import SignupScreen from "ui/screens/signup";
+import TransactionsScreen from "ui/screens/transactions";
 import NotFoundScreen from "ui/screens/404";
 
 // Import Firebase interface:
@@ -18,14 +19,15 @@ import FirebaseInterface from "db/firebase.jsx";
 import Logger from "_/logger.jsx";
 
 // Import styles:
-import "ui/common/styles/reset.scss";
-import "ui/common/styles/util.scss";
-import "ui/common/styles/grid.scss";
+import "ui/common/styles/reset";
+import "ui/common/styles/util";
+import "ui/common/styles/grid";
 
 // Import data:
 import NAV_LINKS from "ui/common/web-links.json";
 
-// Set up logging:
+// Set up variables:
+let isAppInitialized = false;
 const _logger = new Logger( "index.view" );
 
 
@@ -39,6 +41,7 @@ class App extends React.Component {
                         <Route exact path={ NAV_LINKS.HOME } component={ HomeScreen } />
                         <Route exact path={ NAV_LINKS.LOGIN } component={ LoginScreen } />
                         <Route exact path={ NAV_LINKS.SIGNUP } component={ SignupScreen } />
+                        <Route exact path={ NAV_LINKS.TRANSACTIONS } component={ TransactionsScreen } />
                         <Route path="*" component={ NotFoundScreen } />
                     </Switch>
                 </div>
@@ -49,17 +52,21 @@ class App extends React.Component {
 }
 
 
-
-
 // Initialize Firebase:
 const dbInitCallback = ( currentUser ) => {
-    ReactDOMRender(
-        <HashRouter>
-            <App />
-        </HashRouter>,
-        document.getElementById( "content" )
-    );
-    _logger.info( "React app loaded..." );
+    if( isAppInitialized ) {
+        window.location.reload();
+    }
+    else {
+        ReactDOMRender(
+            <HashRouter>
+                <App />
+            </HashRouter>,
+            document.getElementById( "content" )
+        );
+        _logger.info( "React app loaded..." );
+        isAppInitialized = true;
+    }
 };
 
 ( new FirebaseInterface() ).init( dbInitCallback );

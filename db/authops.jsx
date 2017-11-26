@@ -8,12 +8,12 @@
 
 
 // Import dependencies:
-import Utils from "db/utils.jsx";
-import FirebaseInterface from "db/firebase.jsx";
-import DatabaseOperations from "db/ops.jsx";
+import Utils from "db/utils";
+import FirebaseInterface from "db/firebase";
+import DatabaseOperations from "db/ops";
 
 // Import logger:
-import Logger from "_/logger.jsx";
+import Logger from "_/logger";
 
 // Init classes:
 const _utils    = new Utils();

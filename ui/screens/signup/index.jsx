@@ -1,27 +1,21 @@
 // Import dependencies:
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthInterceptor from "ui/common/auth-interceptor.jsx";
+import LoggedInUserInterceptor from "ui/common/interceptors/logged-in";
 import NAV_LINKS from "ui/common/web-links.json";
-import BACKEND_API from "db/apis.jsx";
+import BACKEND_API from "db/apis";
 
 // Import components:
 import Form from "ui/components/form";
 
 // Import logging:
-import Logger from "_/logger.jsx";
+import Logger from "_/logger";
 
 // Set up logging:
-const _logger = new Logger( "signup.main" );
-
-
-function UserLoggedIn() {
-    return <p>User is already logged in...</p>;
-}
+const _logger = new Logger( "signup.view" );
 
 
 export default class Signup extends React.Component {
-
     _handleFormSubmit( data ) {
         BACKEND_API.users.signup( data.email, data.password )
             .then( ( resp ) => {
@@ -45,13 +39,13 @@ export default class Signup extends React.Component {
         };
 
         return (
-            <AuthInterceptor>
+            <LoggedInUserInterceptor>
                 <section>
                     <h2>Signup</h2>
                     <Form data={ formData } />
                     <p>Already a member? <Link to={ NAV_LINKS.LOGIN }>Login</Link></p>
                 </section>
-            </AuthInterceptor>
+            </LoggedInUserInterceptor>
         );
 
     }

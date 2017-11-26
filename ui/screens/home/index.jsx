@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Import styles:
-// import "./style.scss"
+// import "./style"
 
 // Import links:
 import NAV_LINKS from "ui/common/web-links.json";

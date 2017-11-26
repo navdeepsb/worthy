@@ -2,7 +2,7 @@
 import React from "react";
 
 // Import styles:
-import "./style.scss";
+import "./style";
 
 
 export default class Footer extends React.Component {

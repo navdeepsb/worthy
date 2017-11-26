@@ -9,12 +9,12 @@
 
 
 // Import dependencies:
-import Utils from "db/utils.jsx";
-import DatabaseOperations from "db/ops.jsx";
-import AuthenticationOperations from "db/authops.jsx";
+import Utils from "db/utils";
+import DatabaseOperations from "db/ops";
+import AuthenticationOperations from "db/authops";
 
 // Import logging:
-import Logger from "_/logger.jsx";
+import Logger from "_/logger";
 
 // Variables:
 const _obj = {};

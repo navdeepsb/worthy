@@ -19,17 +19,28 @@ import Logger from "_/logger";
 const _utils = new Utils();
 const _firebase = new FirebaseInterface();
 
+// Variables:
+let _cache = {};
+
 // DB ops class:
 export default class DatabaseOperations {
     get( modelLocation ) {
         const _logger = new Logger( "DatabaseOperations.get" );
+        const _cached = _cache[ modelLocation ];
 
         _logger.info( "modelLocation: " + modelLocation );
+
+        if( _cached ) {
+            _logger.debug( "Found this model in the cache, preventing DB call." );
+            return window.Promise.resolve( _cached );
+        }
 
         return _firebase.getFirebaseDB().ref( modelLocation ).once( "value" )
             .then( ( snapshot ) => {
                 const fromDb = snapshot.val();
                 _logger.info( "Found this data: " + JSON.stringify( fromDb, null, 4 ) );
+                _logger.info( "Caching `" + modelLocation + "`" );
+                _cache[ modelLocation ] = fromDb;
                 return fromDb;
             })
             .catch( ( err ) => {
@@ -77,7 +88,7 @@ export default class DatabaseOperations {
     }
 
     updateValue( modelLocation, newValue ) {
-        let   _chain  = window.Promise.resolve( {} ).then( () => { modelLocation } );
+        let   _chain  = window.Promise.resolve( modelLocation );
         const _logger = new Logger( "DatabaseOperations.updateValue" );
 
         _logger.info( "modelLocation: " + modelLocation );
@@ -97,7 +108,6 @@ export default class DatabaseOperations {
                 })
                 .then( ( snapshot ) => {
                     _snapshot = snapshot.val();
-                    _snapshot.lastModifiedOn = Date.now();
 
                     if( _snapshot.username === newValue ) {
                         _logger.info( "No update required since it is the same username" )
@@ -120,7 +130,10 @@ export default class DatabaseOperations {
         return _chain
             .then( ( modelLocation ) => {
                 _logger.info( "Updating at modelLocation: " + modelLocation );
-                return _firebase.getFirebaseDB().ref( modelLocation ).set( newValue );
+                let _updates = {};
+                _updates[ modelLocation ] = newValue;
+                _updates[ modelLocation.substr( 0, modelLocation.lastIndexOf( "/" ) ) + "/lastModifiedOn" ] = Date.now();
+                return _firebase.getFirebaseDB().ref().update( _updates );
             })
             .then( () => {
                 _logger.info( "Updated successfully" );

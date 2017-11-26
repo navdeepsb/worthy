@@ -2,5 +2,7 @@
     "HOME": "/",
     "LOGIN": "/login",
     "SIGNUP": "/signup",
-    "TRANSACTIONS": "/transactions"
+    "TRANSACTIONS": "/transactions",
+    "SETTINGS": "/settings",
+    "MANAGE_TRANSACTIONS": "/manage"
 }

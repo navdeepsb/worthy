@@ -54,6 +54,10 @@ class InputGroup extends React.Component {
         this.state = { inputValue: "" };
     }
 
+    componentWillMount() {
+        this.setState({ inputValue: this.props.value || "" });
+    }
+
     _handleChange( e ) {
         this.setState({ inputValue: e.target.value });
     }
@@ -63,7 +67,7 @@ class InputGroup extends React.Component {
 
         return (
             <div>
-                <label htmlFor={ name }>{ name }</label>
+                <label htmlFor={ name }>{ this.props.label || name }</label>
                 <input id={ name } { ...this.props } onChange={ this._handleChange } value={ this.state.inputValue } />
             </div>
         );

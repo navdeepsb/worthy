@@ -10,6 +10,7 @@ import HomeScreen from "ui/screens/home";
 import LoginScreen from "ui/screens/login";
 import SignupScreen from "ui/screens/signup";
 import TransactionsScreen from "ui/screens/transactions";
+import SettingsScreen from "ui/screens/settings";
 import NotFoundScreen from "ui/screens/404";
 
 // Import Firebase interface:
@@ -41,6 +42,7 @@ class App extends React.Component {
                         <Route exact path={ NAV_LINKS.LOGIN } component={ LoginScreen } />
                         <Route exact path={ NAV_LINKS.SIGNUP } component={ SignupScreen } />
                         <Route exact path={ NAV_LINKS.TRANSACTIONS } component={ TransactionsScreen } />
+                        <Route exact path={ NAV_LINKS.SETTINGS } component={ SettingsScreen } />
                         <Route path="*" component={ NotFoundScreen } />
                     </Switch>
                 </div>

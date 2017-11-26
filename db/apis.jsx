@@ -80,7 +80,7 @@ _obj[ "users" ] = {
          **/
         _logger.info( "users.getCurrentUserInfoFromDb" );
 
-        var currentUserDisplayName = _obj.users.getCurrentUserDisplayNameFromSession();
+        let currentUserDisplayName = _obj.users.getCurrentUserDisplayNameFromSession();
 
         if( !currentUserDisplayName ) {
             _logger.info( "The user is not logged in" );
@@ -119,9 +119,10 @@ _obj[ "users" ] = {
          **/
         _logger.info( "users.modifyCurrentUser" );
 
-        var _chain = window.Promise.resolve( {} ).then( ( o ) => { return o; } );
+        let _chain = window.Promise.resolve( {} );
+        let currentUserDisplayName = _obj.users.getCurrentUserDisplayNameFromSession();
 
-        if( !AUTH_OPS.getCurrentUserEmail() ) {
+        if( !currentUserDisplayName ) {
             _logger.info( "User info not found in session, could not modify user" );
 
             return _chain.then( () => {
@@ -135,16 +136,23 @@ _obj[ "users" ] = {
 
             // Handle password update:
             if( k === "password" ) {
-                AUTH_OPS.updateCurrentUserPassword( updateObj[ k ] );
+                return AUTH_OPS.updateCurrentUserPassword( updateObj[ k ] );
             }
 
             _chain = _chain.then( function() {
-                var _p = DB_OPS.updateValue( "users/" + AUTH_OPS.getCurrentUserDisplayName() + "/" + k, updateObj[ k ] );
+                let _p = DB_OPS.updateValue( "users/" + currentUserDisplayName + "/" + k, updateObj[ k ] );
 
-                // Also update email in the session:
+                // Handle email update:
                 if( k === "email" ) {
                     _p = _p.then( function() {
                         return AUTH_OPS.updateCurrentUserEmail( updateObj[ k ] );
+                    });
+                }
+
+                // Handle email update:
+                if( k === "username" ) {
+                    _p = _p.then( function() {
+                        return AUTH_OPS.updateCurrentUserDisplaName( updateObj[ k ] );
                     });
                 }
 

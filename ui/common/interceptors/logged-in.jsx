@@ -1,5 +1,6 @@
 // Import dependencies:
 import React from "react";
+import { Redirect } from "react-router-dom";
 import NAV_LINKS from "ui/common/web-links.json";
 import BACKEND_API from "db/apis";
 
@@ -15,8 +16,7 @@ export default class AuthInterceptor extends React.Component {
 
     render() {
         if( this.state.isUserLoggedIn ) {
-            window.location.href = "#" + NAV_LINKS.TRANSACTIONS;
-            return null;
+            return <Redirect push to={ NAV_LINKS.TRANSACTIONS } />;
         }
         else {
             return this.props.children;

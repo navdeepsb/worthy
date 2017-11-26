@@ -89,15 +89,15 @@ export default class AuthenticationOperations {
         const _logger = new Logger( "AuthenticationOperations.removeUser" );
 
         if( _firebase.getFirebaseAuth().currentUser ) {
-            const currentUserEmail = _firebase.getFirebaseAuth().currentUser.email;
+            const currentUserDisplayName = _firebase.getFirebaseAuth().currentUser.displayName;
 
-            _logger.info( "Delete request for '" + currentUserEmail + "' started" );
+            _logger.info( "Delete request for '" + currentUserDisplayName + "' started" );
 
             return _firebase.getFirebaseAuth().currentUser.delete()
                 .then( () => {
                     _logger.info( "User removed from auth table, proceeding to remove from database" );
 
-                    return DB_OPS.remove( "users/" + _firebase.getFirebaseAuth().currentUser.displayName );
+                    return DB_OPS.remove( "users/" + currentUserDisplayName );
                 })
                 .then( () => {
                     _logger.info( "User removed from database successfully too" );

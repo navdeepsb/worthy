@@ -61,6 +61,14 @@ $placeholderColor: darken( white, 20% );
         &:hover {
             background: darken( $accent, 15% );
         }
+
+        &.btn--danger {
+            background: $red;
+
+            &:hover {
+                background: darken( $red, 15% );
+            }
+        }
     }
 
     .err {

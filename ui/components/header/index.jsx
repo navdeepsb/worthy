@@ -10,10 +10,8 @@ import "./style";
 
 export default class Header extends React.Component {
     constructor() {
-        super();
-
         const username = BACKEND_API.users.getCurrentUserDisplayNameFromSession();
-
+        super();
         this._handleLogout = this._handleLogout.bind( this );
         this.state = {
             appName: "Worthy",
@@ -52,7 +50,7 @@ export default class Header extends React.Component {
             <header className="header">
                 <div className="container grid">
                     <div className="col col-6 no-gutter">
-                        <Link to={ NAV_LINKS.HOME } className="home-link">{ this.state.appName }</Link>
+                        <Link to={ this.state.isUserLoggedIn ? NAV_LINKS.TRANSACTIONS : NAV_LINKS.HOME } className="home-link">{ this.state.appName }</Link>
                     </div>
                     <div className="col col-6 no-gutter align--right">
                         <LogoutBtn />

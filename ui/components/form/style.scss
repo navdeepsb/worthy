@@ -62,4 +62,8 @@ $placeholderColor: darken( white, 20% );
             background: darken( $accent, 15% );
         }
     }
+
+    .err {
+        color: $red;
+    }
 }

@@ -27,7 +27,6 @@ import "ui/common/styles/grid";
 import NAV_LINKS from "ui/common/web-links.json";
 
 // Set up variables:
-let isAppInitialized = false;
 const _logger = new Logger( "index.view" );
 
 
@@ -54,19 +53,13 @@ class App extends React.Component {
 
 // Initialize Firebase:
 const dbInitCallback = ( currentUser ) => {
-    if( isAppInitialized ) {
-        window.location.reload();
-    }
-    else {
-        ReactDOMRender(
-            <HashRouter>
-                <App />
-            </HashRouter>,
-            document.getElementById( "content" )
-        );
-        _logger.info( "React app loaded..." );
-        isAppInitialized = true;
-    }
+    ReactDOMRender(
+        <HashRouter>
+            <App />
+        </HashRouter>,
+        document.getElementById( "content" )
+    );
+    _logger.info( "React app loaded..." );
 };
 
 ( new FirebaseInterface() ).init( dbInitCallback );

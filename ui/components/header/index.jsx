@@ -14,6 +14,7 @@ export default class Header extends React.Component {
 
         const username = BACKEND_API.users.getCurrentUserDisplayNameFromSession();
 
+        this._handleLogout = this._handleLogout.bind( this );
         this.state = {
             appName: "Worthy",
             username: username,
@@ -23,7 +24,15 @@ export default class Header extends React.Component {
 
     _handleLogout( e ) {
         e.preventDefault();
-        BACKEND_API.users.logout();
+        BACKEND_API.users.logout()
+            .then( ( resp ) => {
+                if( resp.code && resp.message ) {
+                    this.setState({ respMessage: ERROR_MAP[ resp.code ] || ERROR_MAP.generic });
+                }
+                else {
+                    window.location.reload();
+                }
+            });
     }
 
     render() {

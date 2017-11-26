@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LoggedInUserInterceptor from "ui/common/interceptors/logged-in";
 import NAV_LINKS from "ui/common/web-links.json";
+import ERROR_MAP from "ui/common/serverror-map.json";
 import BACKEND_API from "db/apis";
 
 // Import components:
@@ -16,10 +17,24 @@ const _logger = new Logger( "signup.view" );
 
 
 export default class Signup extends React.Component {
+    constructor() {
+        super();
+        this._handleFormSubmit = this._handleFormSubmit.bind( this );
+        this.state = {
+            respMessage: ""
+        };
+    }
+
     _handleFormSubmit( data ) {
+        this.setState({ respMessage: "Creating account..." });
         BACKEND_API.users.signup( data.email, data.password )
             .then( ( resp ) => {
-                _logger.info( resp );
+                if( resp.code && resp.message ) {
+                    this.setState({ respMessage: ERROR_MAP[ resp.code ] || ERROR_MAP.generic });
+                }
+                else {
+                    window.location.reload();
+                }
             });
     }
 
@@ -42,7 +57,7 @@ export default class Signup extends React.Component {
             <LoggedInUserInterceptor>
                 <section>
                     <h2>Signup</h2>
-                    <Form data={ formData } />
+                    <Form data={ formData } error={ this.state.respMessage } />
                     <p>Already a member? <Link to={ NAV_LINKS.LOGIN }>Login</Link></p>
                 </section>
             </LoggedInUserInterceptor>

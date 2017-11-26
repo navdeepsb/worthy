@@ -9,7 +9,7 @@ export default class AuthInterceptor extends React.Component {
         super();
 
         this.state = {
-            isUserLoggedIn: !!BACKEND_API.users.getCurrentUserDisplayNameFromSession()
+            isUserLoggedIn: BACKEND_API.users.isUserLoggedIn()
         };
     }
 

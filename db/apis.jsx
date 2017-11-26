@@ -67,6 +67,13 @@ _obj[ "users" ] = {
         _logger.info( "users.getCurrentUserDisplayNameFromSession" );
         return AUTH_OPS.getCurrentUserDisplayName();
     },
+    isUserLoggedIn: () => {
+        /**
+         * Returns true/false depending on if a user is logged in or not
+         **/
+        _logger.info( "users.isUserLoggedIn" );
+        return !!AUTH_OPS.getCurrentUserDisplayName();
+    },
     getCurrentUserInfoFromDb: () => {
         /**
          * Returns the user info of currently logged-in user
@@ -84,13 +91,13 @@ _obj[ "users" ] = {
 
         return DB_OPS.get( "users/" + currentUserDisplayName );
     },
-    getByEmail: ( email ) => {
+    getByDisplayName: ( displayName ) => {
         /**
-         * Returns the user info by matching the email address
+         * Returns the user info by matching the display name
          **/
-        _logger.info( "users.getByEmail " + email );
+        _logger.info( "users.getByDisplayName " + displayName );
 
-        return DB_OPS.get( "users/" + UTILS.formatEmailAsKey( email ) );
+        return DB_OPS.get( "users/" + displayName );
     },
     getAll: () => {
         /**

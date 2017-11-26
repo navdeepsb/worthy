@@ -32,7 +32,7 @@ export default class Form extends React.Component {
 
     render() {
         return (
-            <form ref="form" className="form" onSubmit={ this._handleSubmit } { ...this.props }>
+            <form ref="form" className="form" onSubmit={ this._handleSubmit } method="POST" action="#">
                 { this.props.data.fields.map( ( field, idx ) => {
                     return <InputGroup { ...field } key={ idx } ref={ inp => this[ "inp" + idx ] = inp } />;
                 })}
@@ -40,6 +40,7 @@ export default class Form extends React.Component {
                     <label />
                     <button>{ this.props.data.buttonText }</button>
                 </div>
+                <p className="err">{ this.props.error }</p>
             </form>
         );
     }

@@ -5,7 +5,7 @@ $grey: #666666;
 
 // Website colors:
 $accent: $grey;
-$siteBackground: white;
+$siteBackground: darken( white, 5% );
 
 
 // Typography colors:
@@ -28,3 +28,14 @@ $contentSepVal: 120px;
 $break-mobile: 420px;
 $break-tablet: 640px;
 $break-desktp: 800px;
+
+
+
+////////////////////////////////////////////////////
+// Uncomment below block to enable the dark theme //
+////////////////////////////////////////////////////
+// $accent: #00B8A9;
+// $siteBackground: #333333;
+// $primaryTextColor: #eeeeee;
+// $secondaryTextColor: #dddddd;
+//////////////////////////////////////////////////

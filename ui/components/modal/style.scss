@@ -1,0 +1,35 @@
+// Good ol' variables:
+$modalOverlayBkg: rgba( black, 0.3 );
+$modalWidth: 420px;
+$modalHeight: 300px;
+
+.modal {
+    .modal__overlay {
+        background: $modalOverlayBkg;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .modal__main {
+        width: $modalWidth;
+        height: $modalHeight;
+        border-radius: 3px;
+        padding: 20px;
+        background: $siteBackground;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -1 * $modalWidth / 2;
+        margin-top: -1 * $modalHeight / 2;
+
+        .modal__title {
+            color: $accent;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+    }
+}

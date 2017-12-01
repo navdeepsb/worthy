@@ -41,10 +41,12 @@ export default class Signup extends React.Component {
     render() {
         const formData = {
             fields: [{
+                label: "Enter your email address",
                 name: "email",
                 placeholder: "Ex. rick.sanchez@example.com",
                 spellCheck: false
             },{
+                label: "Create a strong password",
                 name: "password",
                 placeholder: "*************",
                 type: "password"

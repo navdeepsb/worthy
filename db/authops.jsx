@@ -11,6 +11,7 @@
 import Utils from "db/utils";
 import FirebaseInterface from "db/firebase";
 import DatabaseOperations from "db/ops";
+import CustomError from "db/customerror";
 
 // Import logger:
 import Logger from "_/logger";
@@ -105,7 +106,7 @@ export default class AuthenticationOperations {
                 })
                 .catch( ( err ) => {
                     _logger.info( "[" + err.code + "] " + err.message );
-                    return err;
+                    throw new CustomError( err.code, err.message );
                 });
         }
         else {
@@ -144,7 +145,7 @@ export default class AuthenticationOperations {
             })
             .catch( ( err ) => {
                 _logger.info( "[" + err.code + "] " + err.message );
-                return err;
+                throw new CustomError( err.code, err.message );
             });
     }
 

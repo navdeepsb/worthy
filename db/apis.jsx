@@ -12,6 +12,7 @@
 import Utils from "db/utils";
 import DatabaseOperations from "db/ops";
 import AuthenticationOperations from "db/authops";
+import CustomError from "db/customerror";
 
 // Import logging:
 import Logger from "_/logger";
@@ -132,6 +133,20 @@ _obj[ "users" ] = {
 
         _logger.info( "updateObj: " + JSON.stringify( updateObj, null, 4 ) );
 
+        // Handle email update
+        // This is a sensitive operation which requires recent login
+        // #firebase
+        if( updateObj.email ) {
+            _chain = _chain.then( () => {
+                _logger.info( "Updating email in auth to " + updateObj[ k ] );
+                return AUTH_OPS.updateCurrentUserEmail( updateObj[ k ] );
+            })
+            .catch( ( err ) => {
+                _logger.info( "Recent authentication required!" );
+                throw new CustomError( err.code, "Recent authentication required!" );
+            });
+        }
+
         Object.keys( updateObj ).forEach( ( k ) => {
 
             // Handle password update:
@@ -139,24 +154,20 @@ _obj[ "users" ] = {
                 return AUTH_OPS.updateCurrentUserPassword( updateObj[ k ] );
             }
 
-            _chain = _chain.then( function() {
-                let _p = DB_OPS.updateValue( "users/" + currentUserDisplayName + "/" + k, updateObj[ k ] );
-
-                // Handle email update:
-                if( k === "email" ) {
-                    _p = _p.then( function() {
-                        return AUTH_OPS.updateCurrentUserEmail( updateObj[ k ] );
-                    });
-                }
+            _chain = _chain.then( () => {
+                let _p = window.Promise.resolve( {} );
 
                 // Handle email update:
                 if( k === "username" ) {
-                    _p = _p.then( function() {
+                    _p = _p.then( () => {
+                        _logger.info( "Updating username in auth to " + updateObj[ k ] );
                         return AUTH_OPS.updateCurrentUserDisplaName( updateObj[ k ] );
                     });
                 }
 
-                return _p;
+                return _p.then( () => {
+                    return DB_OPS.updateValue( "users/" + currentUserDisplayName + "/" + k, updateObj[ k ] );
+                });
             });
         });
 

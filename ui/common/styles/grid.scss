@@ -12,6 +12,19 @@ $gutter: 10px;
 
 .grid {
     @include clearfix;
+
+    &.no-gutter .col {
+        padding: 0;
+    }
+
+    &.no-gutter-on-sides .col {
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
+    }
 }
 
 .col {
@@ -20,10 +33,6 @@ $gutter: 10px;
 
     .grid &:last-of-type {
         padding-right: $gutter;
-    }
-
-    .grid &.no-gutter {
-        padding: 0;
     }
 }
 

@@ -4,6 +4,8 @@ $placeholderColor: darken( white, 20% );
 
 
 .form {
+    padding: $formPadding 0;
+
     & > div {
         padding: 0 0 $formPadding 0;
     }
@@ -11,19 +13,24 @@ $placeholderColor: darken( white, 20% );
     input, button, label {
         padding: $formPadding $formPadding $formPadding 0;
         display: block;
+        width: 100%;
         font-family: inherit;
         font-size: 1rem;
+        background: $siteBackground;
+
     }
+    &:not( .form--full-width ) {
+        input, button, label {
+            width: $formWidth;
+        }
+    }
+
 
     label {
-        width: $formWidth;
         padding-bottom: 0;
+        margin-top: 15px;
         font-size: 0.77rem;
         text-transform: uppercase;
-    }
-
-    input, button {
-        width: $formWidth;
     }
 
     input {
@@ -53,7 +60,7 @@ $placeholderColor: darken( white, 20% );
     button {
         color: white;
         background: $accent;
-        border: 1px solid;
+        border: 1px solid $accent;
         cursor: pointer;
         padding-top: $formPadding * 1.5;
         padding-bottom: $formPadding * 1.5;
@@ -64,14 +71,21 @@ $placeholderColor: darken( white, 20% );
 
         &.btn--danger {
             background: $red;
+            border: 1px solid $red;
 
             &:hover {
                 background: darken( $red, 15% );
             }
         }
-    }
 
-    .err {
-        color: $red;
+        &.btn--cancel {
+            color: $primaryTextColor;
+            background: $siteBackground;
+
+                &:hover {
+                    color: white;
+                    background: $accent;
+                }
+        }
     }
 }

@@ -38,6 +38,9 @@ export default class Transactions extends React.Component {
                 <div className="user__content">
                     <h3>View transactions</h3>
                     <UserInfo { ...this.state.user } />
+                    <br />
+                    <br />
+                    <p>Coming soon...</p>
                 </div>
             </LoggedOutUserInterceptor>
         );

@@ -4,6 +4,9 @@ import React from "react"
 // Import styles:
 import "./style"
 
+// Variables:
+const GRID_COLUMNS = 12;
+
 
 export default class Form extends React.Component {
     constructor() {
@@ -37,7 +40,8 @@ export default class Form extends React.Component {
     }
 
     render() {
-        let btnGroup = null;
+        let btnGroup  = null;
+        const btnData = this.props.data.button || {};
         if( this.props.data.hasCancel ) {
             btnGroup = (
                 <div className="grid no-gutter-on-sides">
@@ -52,18 +56,23 @@ export default class Form extends React.Component {
         }
         else {
             btnGroup = (
-                <button>{ this.props.data.buttonText }</button>
+                <div className={ btnData.gridAllocation ? "col col-" + btnData.gridAllocation * GRID_COLUMNS : "" }>
+                    <label htmlFor="" />
+                    <button>{ this.props.data.buttonText || btnData.text }</button>
+                </div>
             );
         }
 
         return (
-            <form ref="form" className={ "form" + ( this.props.data.isFullWidth ? " form--full-width" : "" ) } onSubmit={ this._handleSubmit } method="POST" action="#">
-                { this.props.data.fields.map( ( field, idx ) => {
-                    return <InputGroup { ...field } key={ idx } ref={ inp => this[ "inp" + idx ] = inp } />;
-                })}
+            <div>
+                <form ref="form" className={ "form grid no-gutter-on-sides" + ( this.props.data.isFullWidth ? " form--ful-width" : "" ) } onSubmit={ this._handleSubmit } method="POST" action="#">
+                    { this.props.data.fields.map( ( field, idx ) => {
+                        return <InputGroup data={ field } key={ idx } ref={ inp => this[ "inp" + idx ] = inp } />;
+                    })}
+                    { btnGroup }
+                </form>
                 <p className="err">{ this.props.error }</p>
-                { btnGroup }
-            </form>
+            </div>
         );
     }
 }
@@ -77,7 +86,7 @@ class InputGroup extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ inputValue: this.props.value || "" });
+        this.setState({ inputValue: this.props.data.value || "" });
     }
 
     _handleChange( e ) {
@@ -85,13 +94,17 @@ class InputGroup extends React.Component {
     }
 
     render() {
-        const name = this.props.name;
-        const label = this.props.label ? <label htmlFor={ name }>{ this.props.label }</label> : null;
+        const data  = this.props.data;
+        const name  = data.name;
+        const label = data.label ? <label htmlFor={ name }>{ data.label }</label> : null;
+        const gridAllocation = data.gridAllocation;
+
+        delete data.gridAllocation;
 
         return (
-            <div>
+            <div className={ gridAllocation ? "col col-" + gridAllocation * GRID_COLUMNS : "" }>
                 { label }
-                <input id={ name } { ...this.props } onChange={ this._handleChange } value={ this.state.inputValue } />
+                <input id={ name } { ...data } onChange={ this._handleChange } value={ this.state.inputValue } />
             </div>
         );
     }

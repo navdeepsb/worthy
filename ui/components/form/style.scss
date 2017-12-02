@@ -6,31 +6,34 @@ $placeholderColor: darken( white, 20% );
 .form {
     padding: $formPadding 0;
 
-    & > div {
+    & > div:not( .col ) {
         padding: 0 0 $formPadding 0;
+    }
+
+    & > div.col {
+        input, button, label {
+            width: 100%;
+        }
     }
 
     input, button, label {
         padding: $formPadding $formPadding $formPadding 0;
         display: block;
-        width: 100%;
+        width: $formWidth;
         font-family: inherit;
         font-size: 1rem;
         background: $siteBackground;
-
     }
-    &:not( .form--full-width ) {
-        input, button, label {
-            width: $formWidth;
-        }
-    }
-
 
     label {
         padding-bottom: 0;
         margin-top: 15px;
         font-size: 0.77rem;
         text-transform: uppercase;
+
+        &:empty {
+            margin-top: $formPadding / 2;
+        }
     }
 
     input {

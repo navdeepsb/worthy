@@ -27,9 +27,11 @@ export default class Login extends React.Component {
 
     _handleFormSubmit( data ) {
         this.setState({ respMessage: "Logging in..." });
+        _logger.info( data );
         BACKEND_API.users.login( data.email, data.password )
             .then( ( resp ) => {
-                if( resp.code && resp.message ) {
+                _logger.info( resp );
+                if( resp && resp.code && resp.message ) {
                     this.setState({ respMessage: ERROR_MAP[ resp.code ] || ERROR_MAP.generic });
                 }
                 else {

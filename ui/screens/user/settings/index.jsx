@@ -18,11 +18,16 @@ import Logger from "_/logger";
 
 // Set up logging:
 const _logger = new Logger( "settings.view" );
+const CONTEXT = {
+    REMOVE_ACCT: "remove-account",
+    EMAIL_UPDATE: "email-update"
+};
 
 
 export default class Transactions extends React.Component {
     constructor() {
         super();
+        this._context = "";
         this._handleInfoUpdate = this._handleInfoUpdate.bind( this );
         this._handleRemoveAccount = this._handleRemoveAccount.bind( this );
         this._handlePasswordModalCancel = this._handlePasswordModalCancel.bind( this );
@@ -43,7 +48,9 @@ export default class Transactions extends React.Component {
     }
 
     _handleInfoUpdate( data ) {
+        this._context = CONTEXT.EMAIL_UPDATE;
         this.setState({ isLoaded: false });
+
         BACKEND_API.users.modifyCurrentUser( data )
             .then( ( resp ) => {
                 if( resp.code && resp.message ) {
@@ -63,6 +70,8 @@ export default class Transactions extends React.Component {
         if( e ) {
             e.preventDefault();
         }
+
+        this._context = CONTEXT.REMOVE_ACCT;
 
         BACKEND_API.users.removeCurrentUser()
             .then( ( resp ) => {
@@ -84,14 +93,18 @@ export default class Transactions extends React.Component {
     }
 
     _handlePasswordVerification( data ) {
+        _logger.info( "yo!" );
         BACKEND_API.users.login( this.state.user.email, data.password )
             .then( ( resp ) => {
                 if( resp.code && resp.message ) {
                     this.setState({ passwordUpdateResp: ERROR_MAP[ resp.code ] || ERROR_MAP.generic });
                 }
-                else {
+                else if( this._context === CONTEXT.EMAIL_UPDATE ) {
+                    _logger.info( this._context );
                     this._handleInfoUpdate({ email: this.state.user.email });
-                    // OR
+                }
+                else if( this._context === CONTEXT.REMOVE_ACCT ) {
+                    _logger.info( this._context );
                     this._handleRemoveAccount();
                 }
             });

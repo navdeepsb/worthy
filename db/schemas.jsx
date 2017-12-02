@@ -16,6 +16,7 @@ class User extends Schema {
     constructor() {
         super();
         this.email = "";
+        this.name = "";
         this.username = "";
         this.displayPicUrl = "img/placeholders/user.png";
         this.sources = {};

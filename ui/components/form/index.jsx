@@ -65,7 +65,7 @@ export default class Form extends React.Component {
         }
         else {
             btnGroup = (
-                <div className={ btnData.gridAllocation ? "col col-" + btnData.gridAllocation * GRID_COLUMNS : "" }>
+                <div className={ btnData.gridallocation ? "col col-" + btnData.gridallocation * GRID_COLUMNS : "" }>
                     <label htmlFor="" />
                     <button>{ this.props.data.buttonText || btnData.text }</button>
                 </div>
@@ -105,12 +105,10 @@ class InputGroup extends React.Component {
         const data  = this.props.data;
         const name  = data.name;
         const label = data.label ? <label htmlFor={ name }>{ data.label }</label> : null;
-        const gridAllocation = data.gridAllocation;
-
-        delete data.gridAllocation;
+        const gridallocation = this.props.data.gridallocation;
 
         return (
-            <div className={ gridAllocation ? "col col-" + gridAllocation * GRID_COLUMNS : "" }>
+            <div className={ gridallocation ? "col col-" + gridallocation * GRID_COLUMNS : "" }>
                 { label }
                 <input id={ name } { ...data } onChange={ this._handleChange } value={ this.state.inputValue } />
             </div>

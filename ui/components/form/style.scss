@@ -21,7 +21,7 @@ $placeholderColor: darken( white, 20% );
     }
 
     input, button, label {
-        padding: $formPadding $formPadding $formPadding 0;
+        padding: $formPadding 0;
         display: block;
         width: $formWidth;
         font-family: inherit;

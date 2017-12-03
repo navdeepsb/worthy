@@ -12,8 +12,10 @@ import "ui/screens/user/style";
 // Import logging:
 import Logger from "_/logger";
 
-// Set up logging:
+// Set up logging and other things:
 const _logger = new Logger( "manage.view" );
+const getUniqueId  = () => { return Date.now().toString( 16 ).substr( 4 ) };
+const formatAmount = ( amt ) => { return amt.toString().split( "." ).length === 2 ? amt : amt + ".00" };
 
 
 export default class Transactions extends React.Component {
@@ -23,19 +25,23 @@ export default class Transactions extends React.Component {
         this.state = {
             user: {},
             currentSource: {},
+            sourceUpdateRep: "",
             isLoaded: false
         };
     }
 
     componentWillMount() {
-        BACKEND_API.users.getCurrentUserInfoFromDb().then( ( data ) => {
-            this.setState({ user: data, isLoaded: true });
+        BACKEND_API.users.getCurrentUserInfoFromDb().then( ( resp ) => {
+            this.setState({ user: resp, isLoaded: true });
         });
     }
 
     _handleSourceUpdate( data ) {
         this.setState({ isLoaded: false });
-        _logger.info( data );
+        BACKEND_API.sources.update( getUniqueId(), data.title, window.parseFloat( data.amount, 10 ) ).then( ( resp ) => {
+            _logger.info( "Added source successfully!" );
+            this.setState({ currentSource: resp, sourceUpdateRep: "Added!", isLoaded: true });
+        });
     }
 
     render() {
@@ -47,24 +53,39 @@ export default class Transactions extends React.Component {
                 name: "title",
                 value: this.state.currentSource.title || "",
                 placeholder: "Ex. PNC Checking Account",
-                gridAllocation: 1 / 3,
+                gridallocation: 1 / 3,
                 spellCheck: false
             },{
                 label: "Current amount (USD)",
                 name: "amount",
-                disabled: "disabled",
                 value: this.state.currentSource.amount || 0.00,
                 placeholder: "Ex. 2000.00",
                 type: "number",
-                gridAllocation: 1 / 3,
+                step: "any",
+                gridallocation: 1 / 3,
                 spellCheck: false
             }],
             button: {
                 text: "Add source",
-                gridAllocation: 1 / 3
+                gridallocation: 1 / 3
             },
             onFormSubmit: this._handleSourceUpdate
         };
+
+        const userSources = this.state.user.sources || {};
+        const sourcesElem = Object.keys( userSources ).map( ( _k ) => {
+            const src = userSources[ _k ];
+            return (
+                <div className="grid no-gutter-on-sides">
+                    <div className="col col-4">
+                        { src.title }
+                    </div>
+                    <div className="col col-4">
+                        $ { formatAmount( src.amount ) }
+                    </div>
+                </div>
+            );
+        });
 
         return (
             <LoggedOutUserInterceptor>
@@ -73,10 +94,11 @@ export default class Transactions extends React.Component {
                     <UserInfo { ...this.state.user } />
                     <br />
                     <br />
-                    <div className="grid grid no-gutter-on-sides">
+                    <div className="grid no-gutter-on-sides">
                         <div className="col col-6">
                             <strong>Worth Sources</strong>
                             <Form data={ sourceFormData } error={ this.state.sourceUpdateRep } />
+                            { sourcesElem }
                         </div>
                     </div>
                 </div>

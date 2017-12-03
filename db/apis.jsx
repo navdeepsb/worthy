@@ -33,7 +33,7 @@ _obj[ "users" ] = {
          *     - Returns error object if values are incorrect
          *     - Adds user info to the current auth session
          **/
-        _logger.info( "users.login" );
+        _logger.debug( "users.login" );
         return AUTH_OPS.loginUser({ email: email, password: password });
     },
     signup: ( email, password ) => {
@@ -43,7 +43,7 @@ _obj[ "users" ] = {
          *     - Returns error object if email is not unique
          *     - Adds user info to the current auth session
          **/
-        _logger.info( "users.signup" );
+        _logger.debug( "users.signup" );
         return AUTH_OPS.signupUser({ email: email, password: password });
     },
     logout: () => {
@@ -51,40 +51,40 @@ _obj[ "users" ] = {
          * Logs the current user out
          *     - Returns success obj
          **/
-        _logger.info( "users.logout" );
+        _logger.debug( "users.logout" );
         return AUTH_OPS.logoutUser();
     },
     getCurrentUserEmailFromSession: () => {
         /**
          * Returns the email address of the user currently logged-in, otherwise undefined
          **/
-        _logger.info( "users.getCurrentUserEmailFromSession" );
+        _logger.debug( "users.getCurrentUserEmailFromSession" );
         return AUTH_OPS.getCurrentUserEmail();
     },
     getCurrentUserDisplayNameFromSession: () => {
         /**
          * Returns the email address of the user currently logged-in, otherwise undefined
          **/
-        _logger.info( "users.getCurrentUserDisplayNameFromSession" );
+        _logger.debug( "users.getCurrentUserDisplayNameFromSession" );
         return AUTH_OPS.getCurrentUserDisplayName();
     },
     isUserLoggedIn: () => {
         /**
          * Returns true/false depending on if a user is logged in or not
          **/
-        _logger.info( "users.isUserLoggedIn" );
+        _logger.debug( "users.isUserLoggedIn" );
         return !!AUTH_OPS.getCurrentUserDisplayName();
     },
     getCurrentUserInfoFromDb: () => {
         /**
          * Returns the user info of currently logged-in user
          **/
-        _logger.info( "users.getCurrentUserInfoFromDb" );
+        _logger.debug( "users.getCurrentUserInfoFromDb" );
 
         let currentUserDisplayName = _obj.users.getCurrentUserDisplayNameFromSession();
 
         if( !currentUserDisplayName ) {
-            _logger.info( "The user is not logged in" );
+            _logger.debug( "The user is not logged in" );
             return window.Promise.resolve( { message: "The user is not logged in" } );
         }
 
@@ -104,7 +104,7 @@ _obj[ "users" ] = {
         /**
          * Returns all users
          **/
-        _logger.info( "users.getAll" );
+        _logger.debug( "users.getAll" );
 
         return DB_OPS.get( "users/" )
             .then( ( response ) => {
@@ -118,20 +118,20 @@ _obj[ "users" ] = {
          * Modifies the current user
          *     - Returns success obj
          **/
-        _logger.info( "users.modifyCurrentUser" );
+        _logger.debug( "users.modifyCurrentUser" );
 
         let _chain = window.Promise.resolve( {} );
         let currentUserDisplayName = _obj.users.getCurrentUserDisplayNameFromSession();
 
         if( !currentUserDisplayName ) {
-            _logger.info( "User info not found in session, could not modify user" );
+            _logger.debug( "User info not found in session, could not modify user" );
 
             return _chain.then( () => {
                 return { message: "User info not in session, could not modify" };
             });
          }
 
-        _logger.info( "updateObj: " + JSON.stringify( updateObj, null, 4 ) );
+        _logger.debug( "updateObj: " + JSON.stringify( updateObj, null, 4 ) );
 
         // Handle email update
         // This is a sensitive operation which requires recent login
@@ -182,5 +182,16 @@ _obj[ "users" ] = {
     }
 };
 
-window.BACKEND_API = _obj;
+// User operations:
+_obj[ "sources" ] = {
+    update: ( sourceId, title, amount ) => {
+        const username = AUTH_OPS.getCurrentUserDisplayName();
+        _logger.info( "sources.update for " + username );
+        return DB_OPS.upsert( "/users/" + username + "/sources/" + sourceId, { title: title, amount: amount }, "source" )
+            .then( resp => {
+                return resp.newData;
+            });
+    },
+};
+
 export default _obj

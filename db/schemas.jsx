@@ -6,7 +6,6 @@
 
 class Schema {
     constructor() {
-        this.uid = "";
         this.createdOn = Date.now();
         this.lastModifiedOn = Date.now();
     }
@@ -15,6 +14,7 @@ class Schema {
 class User extends Schema {
     constructor() {
         super();
+        this.uid = "";
         this.email = "";
         this.name = "";
         this.username = "";
@@ -25,11 +25,22 @@ class User extends Schema {
     }
 }
 
+class WorthSource extends Schema {
+    constructor() {
+        super();
+        this.title = "";
+        this.amount = 0.00;
+        this.transactions = {};
+    }
+}
+
 export default class SchemaFactory {
     static get( _schema ) {
         switch( _schema ) {
             case "user":
                 return new User();
+            case "source":
+                return new WorthSource();
             default:
                 return null;
         }

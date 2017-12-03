@@ -55,7 +55,7 @@ export default class DatabaseOperations {
         return _firebase.getFirebaseDB().ref( modelStore ).once( "value" )
             .then( ( snapshot ) => {
                 let oldData    = snapshot.val(); // will be `null` if not found
-                let isUpdateOp = !!oldData; // if data is present, it is an update operation
+                let isUpdateOp = !!oldData;      // if data is present, it is an update operation
                 let dataToSend = SchemaFactory.get( modelSchema );
 
                 // Inherit schema attributes:

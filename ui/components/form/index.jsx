@@ -5,6 +5,7 @@ import React from "react"
 import "./style"
 
 // Variables:
+let _initValues = {};
 const GRID_COLUMNS = 12;
 
 
@@ -18,16 +19,24 @@ export default class Form extends React.Component {
     }
 
     componentWillMount() {
-        this.props.data.fields.forEach( field => this.state[ field.name ] = "" );
+        this.props.data.fields.forEach( field => {
+            this.state[ field.name ] = field.value || "";
+            _initValues[ field.name ] = field.value || "";
+        });
     }
 
     _handleSubmit( e ) {
         e.preventDefault();
 
         let _formData = {};
+        let _newValue = null;
 
         Object.keys( this.state ).forEach( ( propName, idx ) => {
-            _formData[ propName ] = this[ "inp" + idx ].state.inputValue;
+            _newValue = this[ "inp" + idx ].state.inputValue;
+
+            if( _newValue != _initValues[ propName ] ) {
+                _formData[ propName ] = _newValue;
+            }
         });
 
         this.setState( _formData );
@@ -65,7 +74,7 @@ export default class Form extends React.Component {
 
         return (
             <div>
-                <form ref="form" className={ "form grid no-gutter-on-sides" + ( this.props.data.isFullWidth ? " form--ful-width" : "" ) } onSubmit={ this._handleSubmit } method="POST" action="#">
+                <form ref="form" className={ "form grid no-gutter-on-sides" + ( this.props.data.isFullWidth ? " form--full-width" : "" ) } onSubmit={ this._handleSubmit } method="POST" action="#">
                     { this.props.data.fields.map( ( field, idx ) => {
                         return <InputGroup data={ field } key={ idx } ref={ inp => this[ "inp" + idx ] = inp } />;
                     })}
@@ -81,7 +90,6 @@ class InputGroup extends React.Component {
     constructor() {
         super();
         this._handleChange = this._handleChange.bind( this );
-
         this.state = { inputValue: "" };
     }
 
@@ -90,7 +98,7 @@ class InputGroup extends React.Component {
     }
 
     _handleChange( e ) {
-        this.setState({ inputValue: e.target.value });
+        this.setState({ inputValue: e.target.value || "" });
     }
 
     render() {

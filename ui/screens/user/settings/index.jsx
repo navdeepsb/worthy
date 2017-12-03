@@ -19,8 +19,10 @@ import Logger from "_/logger";
 // Set up logging:
 const _logger = new Logger( "settings.view" );
 const CONTEXT = {
-    REMOVE_ACCT: "remove-account",
-    EMAIL_UPDATE: "email-update"
+    BASIC_INFO_UPDATE: "BASIC_INFO_UPDATE",
+    EMAIL_UPDATE: "EMAIL_UPDATE",
+    PASSWORD_UPDATE: "PASSWORD_UPDATE",
+    REMOVE_ACCOUNT: "REMOVE_ACCOUNT"
 };
 
 
@@ -32,13 +34,22 @@ export default class Transactions extends React.Component {
         this._handleRemoveAccount = this._handleRemoveAccount.bind( this );
         this._handlePasswordModalCancel = this._handlePasswordModalCancel.bind( this );
         this._handlePasswordVerification = this._handlePasswordVerification.bind( this );
-        this.state = {
+        this._updateResponseMessage = this._updateResponseMessage.bind( this );
+
+        let _obj = {
             user: {},
             isLoaded: false,
             showPasswordModal: false,
-            basicInfoUpdateRep: "",
-            passwordUpdateResp: ""
+            passwordVerificationResp: "",
+            resp: {}
         };
+
+        // Add context specific server response message keys:
+        Object.keys( CONTEXT ).forEach( ctx => {
+            _obj.resp[ ctx ] = "";
+        });
+
+        this.state = _obj;
     }
 
     componentWillMount() {
@@ -47,14 +58,41 @@ export default class Transactions extends React.Component {
         });
     }
 
-    _handleInfoUpdate( data ) {
+    _updateResponseMessage( context, message, isLoaded ) {
+        let _resp = this.state.resp;
+        _resp[ context ] = message;
+        this.setState({ resp: _resp, isLoaded: !!isLoaded });
+    }
+
+    _handleInfoUpdate( typeOfUpdate, data ) {
+        if( !Object.keys( data ).length ) {
+            this._updateResponseMessage( typeOfUpdate, "No update detected!", true );
+            _logger.info( typeOfUpdate );
+            return;
+        }
+
+        this._updateResponseMessage( typeOfUpdate, "Loading..." );
         this._context = CONTEXT.EMAIL_UPDATE;
-        this.setState({ isLoaded: false });
+
+        if( typeOfUpdate === CONTEXT.PASSWORD_UPDATE ) {
+            if( !data.password || !data.newPassword || !data.newPassword2 ) {
+                _logger.info( data );
+                this._updateResponseMessage( typeOfUpdate, "Incomplete form", true );
+                return;
+            }
+            if( data.newPassword !== data.newPassword2 ) {
+                _logger.info( data );
+                this._updateResponseMessage( typeOfUpdate, "New password values do not match", true );
+                return;
+            }
+        }
+        _logger.info( "### Form passed!" );
+        _logger.info( data );
 
         BACKEND_API.users.modifyCurrentUser( data )
             .then( ( resp ) => {
                 if( resp.code && resp.message ) {
-                    this.setState({ basicInfoUpdateRep: ERROR_MAP[ resp.code ] || ERROR_MAP.generic, isLoaded: true });
+                    this._updateResponseMessage( typeOfUpdate, ERROR_MAP[ resp.code ] || ERROR_MAP.generic, true );
                 }
                 else {
                     window.location.reload();
@@ -62,7 +100,12 @@ export default class Transactions extends React.Component {
             })
             .catch( ( err ) => {
                 _logger.info( err );
-                this.setState({ showPasswordModal: true, isLoaded: true });
+                if( err.code === "auth/requires-recent-login" ) {
+                    this.setState({ showPasswordModal: true, isLoaded: true });
+                }
+                else {
+                    this._updateResponseMessage( typeOfUpdate, ERROR_MAP[ err.code ] || ERROR_MAP.generic, true );
+                }
             });
     }
 
@@ -71,7 +114,7 @@ export default class Transactions extends React.Component {
             e.preventDefault();
         }
 
-        this._context = CONTEXT.REMOVE_ACCT;
+        this._context = CONTEXT.REMOVE_ACCOUNT;
 
         BACKEND_API.users.removeCurrentUser()
             .then( ( resp ) => {
@@ -93,17 +136,16 @@ export default class Transactions extends React.Component {
     }
 
     _handlePasswordVerification( data ) {
-        _logger.info( "yo!" );
         BACKEND_API.users.login( this.state.user.email, data.password )
             .then( ( resp ) => {
                 if( resp.code && resp.message ) {
-                    this.setState({ passwordUpdateResp: ERROR_MAP[ resp.code ] || ERROR_MAP.generic });
+                    this.setState({ passwordVerificationResp: ERROR_MAP[ resp.code ] || ERROR_MAP.generic });
                 }
                 else if( this._context === CONTEXT.EMAIL_UPDATE ) {
                     _logger.info( this._context );
                     this._handleInfoUpdate({ email: this.state.user.email });
                 }
-                else if( this._context === CONTEXT.REMOVE_ACCT ) {
+                else if( this._context === CONTEXT.REMOVE_ACCOUNT ) {
                     _logger.info( this._context );
                     this._handleRemoveAccount();
                 }
@@ -126,7 +168,7 @@ export default class Transactions extends React.Component {
                 spellCheck: false
             }],
             buttonText: "Update Basic Info",
-            onFormSubmit: this._handleInfoUpdate
+            onFormSubmit: this._handleInfoUpdate.bind( this, CONTEXT.BASIC_INFO_UPDATE )
         };
         const emailUpdateFormData = {
             fields: [{
@@ -136,7 +178,7 @@ export default class Transactions extends React.Component {
                 spellCheck: false
             }],
             buttonText: "Update Email",
-            onFormSubmit: this._handleInfoUpdate
+            onFormSubmit: this._handleInfoUpdate.bind( this, CONTEXT.EMAIL_UPDATE )
         };
         const pwdUpdateFormData = {
             fields: [{
@@ -146,17 +188,17 @@ export default class Transactions extends React.Component {
                 type: "password"
             },{
                 label: "New password",
-                name: "newpassword",
+                name: "newPassword",
                 placeholder: "*************",
                 type: "password"
             },{
                 label: "Confirm new password",
-                name: "newpassword2",
+                name: "newPassword2",
                 placeholder: "*************",
                 type: "password"
             }],
             buttonText: "Update Password",
-            onFormSubmit: this._handleInfoUpdate
+            onFormSubmit: this._handleInfoUpdate.bind( this, CONTEXT.PASSWORD_UPDATE )
         };
         const passwordFormData = {
             fields: [{
@@ -174,7 +216,7 @@ export default class Transactions extends React.Component {
         return (
             <LoggedOutUserInterceptor>
                 <Modal title="Please verify your password" show={ this.state.showPasswordModal }>
-                    <Form data={ passwordFormData } error={ this.state.passwordUpdateResp } />
+                    <Form data={ passwordFormData } error={ this.state.passwordVerificationResp } />
                 </Modal>
 
                 <div className="user__content">
@@ -182,15 +224,13 @@ export default class Transactions extends React.Component {
                     <UserInfo { ...this.state.user } />
                     <br />
                     <br />
-                    <Form data={ basicInfoFormData } error={ this.state.basicInfoUpdateRep } />
+                    <Form data={ basicInfoFormData } error={ this.state.resp.BASIC_INFO_UPDATE } />
                     <br />
                     <br />
-                    <Form data={ emailUpdateFormData } error={ this.state.basicInfoUpdateRep } />
-                    <div className="hide">
+                    <Form data={ emailUpdateFormData } error={ this.state.resp.EMAIL_UPDATE } />
                     <br />
                     <br />
-                    <Form data={ pwdUpdateFormData } /*error={ this.state.acctRemoveRep }*/ />
-                    </div>
+                    <Form data={ pwdUpdateFormData } error={ this.state.resp.PASSWORD_UPDATE } />
                     <br />
                     <br />
                     <div className="form">

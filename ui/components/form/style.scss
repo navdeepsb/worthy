@@ -10,10 +10,14 @@ $placeholderColor: darken( white, 20% );
         padding: 0 0 $formPadding 0;
     }
 
-    & > div.col {
+    & > div.col, &.form--full-width {
         input, button, label {
             width: 100%;
         }
+    }
+
+    & + p {
+        margin-top: -10px;
     }
 
     input, button, label {

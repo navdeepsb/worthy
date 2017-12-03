@@ -43,6 +43,10 @@ export default class Firebase {
         }
     }
 
+    getFirebase() {
+        return firebase;
+    }
+
     getFirebaseApp() {
         return app;
     }

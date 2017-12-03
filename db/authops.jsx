@@ -163,17 +163,29 @@ export default class AuthenticationOperations {
             });
     }
 
-    updateCurrentUserPassword( newUserPassword ) {
+    updateCurrentUserPassword( data ) {
         const _logger = new Logger( "AuthenticationOperations.updateCurrentUserPassword" );
 
-        return _firebase.getFirebaseAuth().currentUser.updatePassword( newUserPassword )
+        let _chain  = window.Promise.resolve({});
+        const _auth = _firebase.getFirebaseAuth();
+        const _firebaseAuth = _firebase.getFirebase().auth;
+
+        return _auth.currentUser.reauthenticateWithCredential(
+                _firebaseAuth.EmailAuthProvider.credential(
+                    _auth.currentUser.email,
+                    data.password
+                )
+            )
+            .then( () => {
+                return _auth.currentUser.updatePassword( data.newPassword );
+            })
             .then( () => {
                 _logger.info( "User password updated successfully" );
                 return { message: "success" };
             })
             .catch( ( err ) => {
-                _logger.info( "[error" + err.code + "] " + err.message );
-                return err;
+                _logger.info( "[" + err.code + "] " + err.message );
+                throw new CustomError( err.code, err.message );
             });
     }
 }

@@ -137,9 +137,9 @@ _obj[ "users" ] = {
         // This is a sensitive operation which requires recent login
         // #firebase
         if( updateObj.email ) {
-            _chain = _chain.then( () => {
-                _logger.info( "Updating email in auth to " + updateObj[ k ] );
-                return AUTH_OPS.updateCurrentUserEmail( updateObj[ k ] );
+            return _chain.then( () => {
+                _logger.info( "Updating email in auth to " + updateObj.email );
+                return AUTH_OPS.updateCurrentUserEmail( updateObj.email );
             })
             .catch( ( err ) => {
                 _logger.info( "Recent authentication required!" );
@@ -147,13 +147,13 @@ _obj[ "users" ] = {
             });
         }
 
+        // Handle password update:
+        if( updateObj.password ) {
+            _logger.debug( "Updating password in auth" );
+            return AUTH_OPS.updateCurrentUserPassword( updateObj );
+        }
+
         Object.keys( updateObj ).forEach( ( k ) => {
-
-            // Handle password update:
-            if( k === "password" ) {
-                return AUTH_OPS.updateCurrentUserPassword( updateObj[ k ] );
-            }
-
             _chain = _chain.then( () => {
                 let _p = window.Promise.resolve( {} );
 

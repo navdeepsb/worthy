@@ -45,7 +45,8 @@ export default class Login extends React.Component {
             fields: [{
                 name: "email",
                 placeholder: "Ex. rick@example.com",
-                spellCheck: false
+                spellCheck: false,
+                autoComplete: "off"
             },{
                 name: "password",
                 placeholder: "*************",

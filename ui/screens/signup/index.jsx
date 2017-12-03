@@ -44,7 +44,8 @@ export default class Signup extends React.Component {
                 label: "Enter your email address",
                 name: "email",
                 placeholder: "Ex. rick.sanchez@example.com",
-                spellCheck: false
+                spellCheck: false,
+                autoComplete: "off"
             },{
                 label: "Create a strong password",
                 name: "password",

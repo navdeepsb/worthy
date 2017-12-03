@@ -21,8 +21,12 @@ export default class UserInfo extends React.Component {
         return (
             <div>
                 <p className="text--small">
-                    <span dangerouslySetInnerHTML={{ __html: ( this.props.name ? this.props.name + " &bull; " : "" ) + "<strong>@" + this.props.username + "</strong> &bull; " }} />
-                    <span className="text--disabled">Member since { this._formatDate( this.props.createdOn ) }</span>
+                    <span>
+                        { ( this.props.name ? this.props.name + " . " : "" ) + "@" + this.props.username + " . " }
+                    </span>
+                    <span className="text--disabled">
+                        Member since { this._formatDate( this.props.createdOn ) } . Last modified on { this._formatDate( this.props.lastModifiedOn ) }
+                    </span>
                 </p>
                 <p className="user__nav text--small">
                     <Link to={ NAV_LINKS.MANAGE_TRANSACTIONS } activeStyle={ _active }>Manage transactions</Link>
